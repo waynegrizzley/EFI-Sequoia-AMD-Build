@@ -27,13 +27,14 @@
 
 - Windows PC with admin rights  
 - USB flash drive (at least 16 GB) formatted as FAT32 or exFAT  
-- [GibMacOS](https://github.com/corpnewt/gibMacOS) or [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher) tools for downloading macOS installer  
+- macOS Installer: You can use either **Litemint09’s RDRS** or the official **macOS Sequoia 15.5 installer**  
+- [GibMacOS](https://github.com/corpnewt/gibMacOS) or similar tools for downloading macOS installers on Windows  
 - [MountEFI](https://github.com/crypticmind/MountEFI) or [EFI Mounter](https://github.com/SoniEx2/EFI-Mounter) for mounting EFI partitions in Windows  
 - [ProperTree](https://github.com/corpnewt/ProperTree) for editing plist files  
 - [smibosgen.bat](https://github.com/dortania/OC-Gen-X) or similar SMBIOS generator for creating serials  
 - 7-Zip or similar tool for extracting archives  
 
----
+...
 
 ## 🚀 Installation Instructions (Windows)
 
