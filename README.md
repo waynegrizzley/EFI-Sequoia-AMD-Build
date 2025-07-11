@@ -1,86 +1,102 @@
-# ✅ OpenCore EFI – macOS Sequoia 15.5 – AMD Ryzen 9 5900X + RX 6700 XT
-![OpenCore 1.0.5](https://img.shields.io/badge/OpenCore-1.0.5-blue.svg)
-![Status: Stable](https://img.shields.io/badge/Status-Stable-brightgreen.svg)
-![macOS Sequoia](https://img.shields.io/badge/macOS-Sequoia%2015.5-red.svg)
+# ✅ OpenCore 1.0.5 EFI for Ryzen 9 5900X + Radeon RX 6700 XT
 
-This is a working and stable EFI for **macOS Sequoia 15.5**, fully optimized for AMD Ryzen and Radeon RX 6700 XT. Built for performance and reliability, with support for iServices, proper USB mapping, and full GPU acceleration using **NootRX** (no WhateverGreen).
-
-Tested using **OpenCore 1.0.5**.
-
----
-
-## 🖥️ System Specs
-
-| Component      | Model / Details                                     |
-|----------------|-----------------------------------------------------|
-| **CPU**        | AMD Ryzen 9 5900X (12-core, 24-thread)              |
-| **GPU**        | AMD Radeon RX 6700 XT                               |
-| **Motherboard**| ASUS ROG Strix B550-F Gaming (non-WiFi)             |
-| **Audio**      | Realtek ALC S1220A (working via `alcid=1`)          |
-| **Ethernet**   | Intel I225-V 2.5Gb (patched using `IntelMausi.kext`)|
-| **Storage**    | Internal SSD (Sequoia 15.5 installed)               |
-| **Boot Mode**  | UEFI (Windows dual-boot compatible)                 |
-| **SMBIOS**     | iMacPro1,1                                          |
-| **USB Mapping**| USBToolBox + custom UTBMap.kext                     |
+**macOS Version:** Sequoia 15.5 (Build 23G90)  
+**OpenCore Version:** 1.0.5  
+**Motherboard:** ASUS ROG Strix B550-F Gaming (Non-WiFi)  
+**CPU:** AMD Ryzen 9 5900X  
+**GPU:** Radeon RX 6700 XT  
 
 ---
 
-## ✅ Features
+## ✔️ Features
 
-- Full GPU acceleration with **NootRX.kext**
-- Native audio via AppleALC (`alcid=1`)
-- Intel 2.5Gb Ethernet via IntelMausi.kext
-- Proper USB mapping via USBToolBox and UTBMap.kext
-- All Apple iServices working (iMessage, iCloud, FaceTime, App Store)
-- Power management using `SSDT-EC-USBX` and `SSDT-SBUS-MCHC`
-- Windows dual-boot compatible
-
----
-
-## ⚙️ Boot Arguments
-
--v keepsyms=1 debug=0x100 amfi=0x80 agdpmod=pikera alcid=1 radpg=15
+- ✅ Full Ryzen 9 5900X CPU support with kernel patches  
+- ✅ Radeon RX 6700 XT GPU acceleration with `agdpmod=pikera`  
+- ✅ USB WiFi dongle hack enabled via [Chris1111 Wireless USB Adapter patch](https://github.com/chris1111/Wireless-USB-OC-Big-Sur-Adapter)  
+- ✅ Native Intel 2.5Gb Ethernet support configured  
+- ✅ Realtek ALC1200 audio configured with `alcid=1`  
+- ✅ Custom USB port mapping with USBToolBox `UTBMap`  
+- ✅ SMBIOS generated for Ryzen platform — supports iMessage & App Store  
+- ✅ Boot Arguments: `-v keepsyms=1 debug=0x100 amfi=0x80 agdpmod=pikera alcid=1 radpg=15`  
+- ✅ BIOS tweaks: Secure Boot off, SATA AHCI mode, Fast Boot disabled  
 
 ---
 
-## 📁 Included Kexts
+## ⚙️ Requirements
 
-- `Lilu.kext`
-- `NootRX.kext`
-- `VirtualSMC.kext`
-- `SMCProcessor.kext`
-- `SMCSuperIO.kext`
-- `AppleALC.kext`
-- `IntelMausi.kext`
-- `USBToolBox.kext`
-- `UTBMap.kext`
+- ASUS ROG Strix B550-F Gaming (non-WiFi) motherboard  
+- AMD Ryzen 9 5900X CPU  
+- Radeon RX 6700 XT GPU  
+- Compatible USB WiFi dongle (per Chris1111 patch)  
+- USB flash drive (FAT32 formatted) for macOS installer  
+- macOS Sequoia 15.5 Installer  
 
 ---
 
-## ⚠️ Notes
+## 🚀 Installation Instructions
 
-- Built for Sequoia 15.5 — also compatible with Sonoma and Ventura.
-- Secure Boot and CFG Lock must be disabled in BIOS.
-- Resize BAR should be **disabled**. Above 4G Decoding **enabled**.
-- No wireless card required — built for the non-WiFi board version.
+1. **Prepare macOS USB Installer**  
+   Use GibMacOS or Terminal to create a bootable macOS Sequoia 15.5 USB installer.
+
+2. **Copy EFI Folder**  
+   Mount the EFI partition on the USB installer and replace the EFI folder with this repository’s EFI.
+
+3. **BIOS Setup**  
+   - Disable Secure Boot  
+   - Set SATA Mode to AHCI  
+   - Disable Fast Boot  
+   - Disable CFG Lock if present  
+   - Enable USB Legacy Support (if applicable)  
+
+4. **Boot Installer**  
+   Boot your system from the USB installer and proceed with macOS installation.
+
+5. **Post-Install**  
+   After installation, mount your system drive’s EFI and copy this EFI folder there.
 
 ---
 
-## 🧠 Recommended BIOS Settings
+## 🔧 Troubleshooting
 
-- Above 4G Decoding: **Enabled**  
-- Resize BAR: **Disabled**  
-- CSM: **Disabled**  
-- Secure Boot: **Disabled**  
-- SVM (Virtualization): **Enabled**  
-- CFG Lock: **Disabled**
+- **Black screen on boot**  
+  Ensure `agdpmod=pikera` is in boot args and WhateverGreen kext is up to date.
+
+- **WiFi not working**  
+  Use a supported USB WiFi dongle with Chris1111’s patch; onboard WiFi not supported.
+
+- **System freezes or kernel panics**  
+  Double-check BIOS settings and USB port mapping to avoid overcurrent or conflicts.
+
+- **No sound / Audio issues**  
+  Confirm `alcid=1` boot arg and verify Realtek codec compatibility.
+
+- **Apple services not working (iMessage, FaceTime)**  
+  Run `smibosgen.bat` to generate new SMBIOS serials and system identifiers.
 
 ---
 
-## 📝 Credits
+## 🙌 Credits
 
-- [OpenCore Team](https://github.com/acidanthera)
-- [NootRX by xCuri0](https://github.com/xCuri0/NootRX)
-- [USBToolBox](https://github.com/USBToolBox/tool)
-- [Dortania Guide](https://dortania.github.io/)
-- Hackintosh Discord & AppleLife Forums
+- OpenCore Team — [https://github.com/acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)  
+- Chris1111 — Wireless USB Adapter patch [https://github.com/chris1111/Wireless-USB-OC-Big-Sur-Adapter](https://github.com/chris1111/Wireless-USB-OC-Big-Sur-Adapter)  
+- AMD OSX Community for Ryzen patches  
+- WhateverGreen for AMD GPU support  
+- USBToolBox for USB port mapping  
+
+---
+
+## 📬 Contact
+
+If you have questions or issues, contact:  
+**Email:** [waynegrizzley@gmail.com](mailto:waynegrizzley@gmail.com)  
+**Website:** [www.waynegrizzley.com](https://www.waynegrizzley.com)  
+
+---
+
+## ⚠️ Disclaimer
+
+Use this EFI at your own risk. No warranty or guarantees are provided.  
+
+---
+
+Enjoy your smooth Hackintosh Ryzen build with Radeon GPU acceleration and USB WiFi support! 🎉
