@@ -34,7 +34,7 @@
 - [smibosgen.bat](https://github.com/dortania/OC-Gen-X) or similar SMBIOS generator for creating serials  
 - 7-Zip or similar tool for extracting archives  
 
-...
+---
 
 ## 🚀 Installation Instructions (Windows)
 
