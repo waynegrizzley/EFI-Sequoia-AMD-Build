@@ -19,59 +19,67 @@
 - ✅ SMBIOS generated for Ryzen platform — supports iMessage & App Store  
 - ✅ Boot Arguments: `-v keepsyms=1 debug=0x100 amfi=0x80 agdpmod=pikera alcid=1 radpg=15`  
 - ✅ BIOS tweaks: Secure Boot off, SATA AHCI mode, Fast Boot disabled  
+- ✅ Radeon GPU support powered by **NooTRX** kext instead of WhateverGreen  
 
 ---
 
-## ⚙️ Requirements
+## ⚙️ Requirements (Windows)
 
-- ASUS ROG Strix B550-F Gaming (non-WiFi) motherboard  
-- AMD Ryzen 9 5900X CPU  
-- Radeon RX 6700 XT GPU  
-- Compatible USB WiFi dongle (per Chris1111 patch)  
-- USB flash drive (FAT32 formatted) for macOS installer  
-- macOS Sequoia 15.5 Installer  
+- Windows PC with admin rights  
+- USB flash drive (at least 16 GB) formatted as FAT32 or exFAT  
+- [GibMacOS](https://github.com/corpnewt/gibMacOS) or [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher) tools for downloading macOS installer  
+- [MountEFI](https://github.com/crypticmind/MountEFI) or [EFI Mounter](https://github.com/SoniEx2/EFI-Mounter) for mounting EFI partitions in Windows  
+- [ProperTree](https://github.com/corpnewt/ProperTree) for editing plist files  
+- [smibosgen.bat](https://github.com/dortania/OC-Gen-X) or similar SMBIOS generator for creating serials  
+- 7-Zip or similar tool for extracting archives  
 
 ---
 
-## 🚀 Installation Instructions
+## 🚀 Installation Instructions (Windows)
 
-1. **Prepare macOS USB Installer**  
-   Use GibMacOS or Terminal to create a bootable macOS Sequoia 15.5 USB installer.
+1. **Download macOS Installer**  
+   Use [GibMacOS](https://github.com/corpnewt/gibMacOS) on Windows to download macOS Sequoia 15.5 installer app.
 
-2. **Copy EFI Folder**  
-   Mount the EFI partition on the USB installer and replace the EFI folder with this repository’s EFI.
+2. **Create macOS USB Installer**  
+   Use [TransMac](https://www.acutesystems.com/scrtm.htm) or [balenaEtcher](https://www.balena.io/etcher/) (with a DMG) to flash macOS installer onto USB drive. Alternatively, use Terminal on macOS if available.
 
-3. **BIOS Setup**  
+3. **Copy EFI Folder**  
+   Use [MountEFI](https://github.com/crypticmind/MountEFI) to mount the EFI partition of the USB installer, then replace the EFI folder with this repository’s EFI folder.
+
+4. **Configure BIOS Settings**  
    - Disable Secure Boot  
    - Set SATA Mode to AHCI  
    - Disable Fast Boot  
-   - Disable CFG Lock if present  
+   - Disable CFG Lock (if available)  
    - Enable USB Legacy Support (if applicable)  
 
-4. **Boot Installer**  
-   Boot your system from the USB installer and proceed with macOS installation.
+5. **Boot Installer**  
+   Boot from the USB installer on your Ryzen system and install macOS Sequoia 15.5.
 
-5. **Post-Install**  
-   After installation, mount your system drive’s EFI and copy this EFI folder there.
+6. **Post-install EFI Setup**  
+   After installation, use [MountEFI](https://github.com/crypticmind/MountEFI) on Windows to mount your macOS system drive EFI partition and replace its EFI folder with this configured EFI.
+
+7. **Generate SMBIOS Serials**  
+   Run `smibosgen.bat` or use [OC-Gen-X](https://github.com/dortania/OC-Gen-X) on Windows to generate fresh SMBIOS serials and update your config.plist accordingly with ProperTree.
 
 ---
 
 ## 🔧 Troubleshooting
 
-- **Black screen on boot**  
-  Ensure `agdpmod=pikera` is in boot args and WhateverGreen kext is up to date.
+- **Black screen on boot:**  
+  Make sure boot args include `agdpmod=pikera` and that **NooTRX** kext is properly installed.
 
-- **WiFi not working**  
+- **WiFi not working:**  
   Use a supported USB WiFi dongle with Chris1111’s patch; onboard WiFi not supported.
 
-- **System freezes or kernel panics**  
-  Double-check BIOS settings and USB port mapping to avoid overcurrent or conflicts.
+- **Freezing or kernel panics:**  
+  Verify BIOS settings and USB port mapping via USBToolBox.
 
-- **No sound / Audio issues**  
-  Confirm `alcid=1` boot arg and verify Realtek codec compatibility.
+- **Audio issues:**  
+  Confirm `alcid=1` boot arg; try alternate layout IDs if needed.
 
-- **Apple services not working (iMessage, FaceTime)**  
-  Run `smibosgen.bat` to generate new SMBIOS serials and system identifiers.
+- **Apple services issues:**  
+  Re-generate SMBIOS serials and system identifiers with `smibosgen.bat`.
 
 ---
 
@@ -79,15 +87,15 @@
 
 - OpenCore Team — [https://github.com/acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)  
 - Chris1111 — Wireless USB Adapter patch [https://github.com/chris1111/Wireless-USB-OC-Big-Sur-Adapter](https://github.com/chris1111/Wireless-USB-OC-Big-Sur-Adapter)  
-- AMD OSX Community for Ryzen patches  
-- WhateverGreen for AMD GPU support  
-- USBToolBox for USB port mapping  
+- AMD OSX Community  
+- **NooTRX** (Radeon GPU support)  
+- USBToolBox  
 
 ---
 
 ## 📬 Contact
 
-If you have questions or issues, contact:  
+For support or questions:  
 **Email:** [waynegrizzley@gmail.com](mailto:waynegrizzley@gmail.com)  
 **Website:** [www.waynegrizzley.com](https://www.waynegrizzley.com)  
 
@@ -95,8 +103,8 @@ If you have questions or issues, contact:
 
 ## ⚠️ Disclaimer
 
-Use this EFI at your own risk. No warranty or guarantees are provided.  
+Use at your own risk. No warranty or guarantee.
 
 ---
 
-Enjoy your smooth Hackintosh Ryzen build with Radeon GPU acceleration and USB WiFi support! 🎉
+Enjoy your Hackintosh Ryzen build with Radeon GPU acceleration powered by **NooTRX** and USB WiFi support! 🎉
